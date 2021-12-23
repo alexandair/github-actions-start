@@ -24,7 +24,7 @@ jobs:
 
   infrastructure-incremental-test:
     needs: publish-bicep
-    uses: alexandair/github-actions-start/.github/workflows/deployment.yml@c393e83
+    uses: alexandair/github-actions-start/.github/workflows/deployment.yml@main
     with:
       environment: test
     secrets:
