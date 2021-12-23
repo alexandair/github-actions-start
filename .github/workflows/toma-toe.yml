@@ -8,12 +8,12 @@ jobs:
       - uses: actions/checkout@v2
       - name: Compile infrastructure
         uses: Azure/cli@1.0.4
-        with:     #A
+        with:
           azcliversion: 2.23.0
           inlineScript: az bicep build --file ./deployment/main.bicep
       - name: Compile infrastructure
         uses: Azure/cli@1.0.4
-        with:     #A
+        with:
           azcliversion: 2.23.0
           inlineScript: az bicep build --file ./deployment/trafficmgr.bicep
       - name: Publish Artifact
@@ -21,3 +21,11 @@ jobs:
         with:
           name: bicep-templates
           path: deployment/*.json
+
+  infrastructure-incremental-test:
+    needs: publish-bicep
+    uses: alexandair/github-actions-start/.github/workflows/deployment.yml@c393e83
+    with:
+      environment: test
+    secrets:
+      azure-login: ${{ secrets.AZURE_TEST }}
